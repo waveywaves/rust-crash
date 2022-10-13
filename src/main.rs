@@ -35,12 +35,39 @@ fn main() {
 
     println!("{}", thread_rng().gen_range(1..101));
 
-    // Tupples
+    // Tuples
     let my_tuple: (u8, String, f64) = (26, "Vibhav".to_string(), 50_000.0);
     println!("Name : {}", my_tuple.1);
     let(v1, v2, v3) = my_tuple;
     println!("Age : {}", v1);
 
+    // String
+    let mut s = String::new();
+    s.push('A');
+    s.push_str("word");
+    for word in s.split_whitespace() {
+        println!("{}", word)
+    }
+    let s2 = s.replace("A", "Another");
+    println!("{}", s2);
+
+    let s3 = String::from("a d q s n k j i s s");
+    let mut v1: Vec<char> = s3.chars().collect();
+    v1.sort();
+    v1.dedup();
+    for char in v1 {
+        println!("{}", char);
+    }
+
+    let s4: &str = "Random string";
+    let mut s5: String = s4.to_string();
+    println!("{}", s5);
+    let bytearr = s5.as_bytes();
+    let s6 = &s5[0..6];
+    println!("String length : {}", s6.len());
+    let s6 = String::from("Just some");
+    let s7 = String::from("words");
+    let s8 = s6 + &s7;
 
     
 }
