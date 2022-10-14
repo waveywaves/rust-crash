@@ -69,5 +69,38 @@ fn main() {
     let s7 = String::from("words");
     let s8 = s6 + &s7;
 
-    
+    // Casting
+
+    let uint8: u8 = 5;
+    let uint32: u32 = (uint8 as u32) + (uint8 as u32);
+    println!("{}", uint32);
+
+    // Enums
+
+    enum Day {
+        Monday, 
+        Tuesday, 
+        Wednesday,
+        Thursday,
+        Friday, 
+        Saturday, 
+        Sunday
+    }
+
+    impl Day {
+        fn is_weekend(&self) ->  bool {
+            match self {
+                Day::Saturday | Day::Sunday => true,
+                _ => false
+            }
+        }
+    }
+
+    let today:Day = Day::Monday;
+    match today {
+        Day::Monday => println!("Everyone hates mondays"),
+        _ => println!("other hatements")
+    }
+
+    println!("Is today a weekend ? {}", today.is_weekend())
 }
