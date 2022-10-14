@@ -8,7 +8,29 @@ use std::fs::File;
 use std::cmp::Ordering;
 
 
+fn say_hello() {
+    println!("Hello");
+}
+
+fn get_sum(x: i32, y: i32) -> i32 {
+    println!("{} {} {}",x,y,x+y);
+    return x+y;
+}
+
+fn get_2(x: i32) -> (i32, i32) {
+    return (x+1, x+2);
+}
+
+fn sum_list(list: &[i32]) -> i32 {
+    let mut sum = 0;
+    for &i in list.iter() {
+        sum += &i;
+    }
+    return sum;
+}
+
 fn main() {
+
     // println!("What is your name ?");
 
     // let mut name = String::new();
@@ -102,5 +124,35 @@ fn main() {
         _ => println!("other hatements")
     }
 
-    println!("Is today a weekend ? {}", today.is_weekend())
+    println!("Is today a weekend ? {}", today.is_weekend());
+
+    // Vectors
+
+    let vec1: Vec<u32> = Vec::new();
+    let mut vec2 = vec![1,2,3,4];
+    vec2.push(5);
+    println!("{}", vec2[0]);
+    let second: &i32 = &vec2[1];
+    match vec2.get(1) {
+        Some(second) => println!("{}", second),
+        None => println!("No second value"),
+    }
+    for i in &mut vec2 {
+        *i *= 2;
+    }
+    for i in &vec2 {
+        println!("{}", i);
+    }
+    println!("{}", vec2.len());
+    println!("{:?}", vec2.pop());
+
+    // Functions 
+
+    say_hello();
+    println!("{}",get_sum(5,4));
+
+    let (val1, val2) = get_2(3);
+    println!("{} {} ", val1, val2);
+    sum_list(&vec2);
+
 }
