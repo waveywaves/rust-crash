@@ -6,6 +6,7 @@ use rand::rngs::ThreadRng;
 use std::io::{Write, BufReader, BufRead, ErrorKind};
 use std::fs::File;
 use std::cmp::Ordering;
+use std::ops::Add;
 
 
 fn say_hello() {
@@ -27,6 +28,20 @@ fn sum_list(list: &[i32]) -> i32 {
         sum += &i;
     }
     return sum;
+}
+
+fn sum_gen<T:Add<Output = T>>(x: T, y: T) -> T {
+    return x + y;
+}
+
+fn print_return_str(x: String) -> String {
+    println!("A string {}", x);
+    return x;
+}
+
+fn change_str(name: &mut String){
+    name.push_str(" is happy");
+    println!("Message : {}", name);
 }
 
 fn main() {
@@ -153,6 +168,22 @@ fn main() {
 
     let (val1, val2) = get_2(3);
     println!("{} {} ", val1, val2);
-    sum_list(&vec2);
+    println!("{}", sum_list(&vec2));
+
+    // Generics
+
+    println!("{}", sum_gen(50_000.2, 120.10));
+    println!("{}", sum_gen(5, 12));
+
+    // Ownership
+
+    let str1: String = String::from("World");
+    let mut mutstr1: String = String::from("World");
+    let str2 : String = str1.clone();
+    println!("Hello {}", str1); 
+
+    let str3 = print_return_str(str1);
+    println!("str3 = {}", str3);
+    change_str(&mut mutstr1);
 
 }
