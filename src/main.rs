@@ -7,6 +7,7 @@ use std::io::{Write, BufReader, BufRead, ErrorKind};
 use std::fs::File;
 use std::cmp::Ordering;
 use std::ops::Add;
+use std::collections::HashMap;
 
 
 fn say_hello() {
@@ -185,5 +186,16 @@ fn main() {
     let str3 = print_return_str(str1);
     println!("str3 = {}", str3);
     change_str(&mut mutstr1);
+
+    let mut heroes: HashMap<&str, &str> = HashMap::new();
+    heroes.insert("Superman", "Clark Kent");
+    heroes.insert("Batman", "Bruise Wayme");
+    heroes.insert("The Flash", "Barry Allen");
+
+    for(k, v) in heroes.iter() {
+        println!("{} = {}", k, v);
+    }
+
+    println!("Length : {}", heroes.len());
 
 }
