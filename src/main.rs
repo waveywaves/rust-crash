@@ -10,6 +10,9 @@ use std::cmp::Ordering;
 use std::ops::Add;
 use std::collections::HashMap;
 
+mod restaurant;
+use crate::restaurant::order_food;
+
 
 fn say_hello() {
     println!("Hello");
@@ -276,4 +279,7 @@ fn main() {
     println!("Rec Area : {}", rect.area());
     println!("Circ Area : {}", circ.area());
 
+    // Modules
+
+    order_food();
 }
