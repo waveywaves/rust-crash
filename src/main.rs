@@ -1,5 +1,6 @@
 #![allow(unused)]
 
+use std::f32::consts::PI;
 use std::io; 
 use rand::{Rng, rngs, thread_rng};
 use rand::rngs::ThreadRng;
@@ -187,6 +188,8 @@ fn main() {
     println!("str3 = {}", str3);
     change_str(&mut mutstr1);
 
+    //HashMap
+
     let mut heroes: HashMap<&str, &str> = HashMap::new();
     heroes.insert("Superman", "Clark Kent");
     heroes.insert("Batman", "Bruise Wayme");
@@ -197,5 +200,80 @@ fn main() {
     }
 
     println!("Length : {}", heroes.len());
+    if heroes.contains_key("Batman") {
+        let the_batman = heroes.get(&"Batman");
+        match the_batman {
+            Some (x) => println!("Batman is a hero !"),
+            None => println!("Batman is not a hero")
+        }
+    }
+
+    // Struct
+
+    struct Customer{
+        name: String,
+        address: String,
+        balance: f32
+    }
+
+    let mut bob: Customer = Customer{
+        name: String::from("bob"),
+        address: String::from("house"),
+        balance: 234.50
+    };
+
+    bob.address = String::from("123 st.");
+
+    struct Rectangle<T, U> {
+        length: T,
+        height: U,
+    }
+    let rec = Rectangle{
+        length: 4,
+        height: 12.4,
+    };
+
+    // Traits
+
+    trait Shape {
+        fn new(length: f32, width: f32) -> Self;
+        fn area(&self) -> f32;
+    }
+
+    struct Rect {
+        length: f32,
+        width: f32,
+    };
+
+    struct Circle {
+        length: f32,
+        width: f32
+    };
+
+    impl Shape for Rect {
+        fn new(length: f32, width: f32) -> Rect {
+            return Rect{length, width};
+        }
+
+        fn area(&self) -> f32 {
+            return self.length * self.width;
+        }
+    }
+
+    impl Shape for Circle {
+        fn new(length: f32, width: f32) -> Circle {
+            return Circle{length, width};
+        }
+
+        fn area(&self) -> f32 {
+            return (self.length/ 2.0).powf(2.0) * PI;
+        }
+    }
+
+    let rect: Rect = Shape::new(10.0, 10.0);
+    let circ: Circle = Shape::new(10.0, 10.0);
+
+    println!("Rec Area : {}", rect.area());
+    println!("Circ Area : {}", circ.area());
 
 }
