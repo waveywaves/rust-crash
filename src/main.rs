@@ -1,7 +1,7 @@
 #![allow(unused)]
 
 use std::f32::consts::PI;
-use std::io; 
+use std::{io, error}; 
 use rand::{Rng, rngs, thread_rng};
 use rand::rngs::ThreadRng;
 use std::io::{Write, BufReader, BufRead, ErrorKind};
@@ -282,4 +282,76 @@ fn main() {
     // Modules
 
     order_food();
+
+    // Error Handling
+
+    let path = "lines.txt";
+    let output = File::create(path);
+
+    let mut output = match output {
+        Ok(file) => file,
+        Err(error) => {
+            panic!("Problem while creating file : {:?}", error)
+        }
+    };
+
+    write!(output, "Just some random words").expect(
+        "Failed write to file"
+    );
+
+    let input = 
+        File::open(path).unwrap();
+    let buffered = 
+        BufReader::new(input);
+
+    let output2 = File::create
+        ("rand.txt");
+    let output2 = match output2 {
+        Ok(file) => file,
+        Err(error) => match error.kind(){
+            ErrorKind::NotFound => match File::create("rand.txt"){
+                Ok(fc) => fc,
+                Err(e) => panic!("Can't create file {:?}", e)
+            },
+            _other_error => 
+                panic!("Can't create file {:?}", error),
+        }
+    };
+
+    // Iterators
+
+    let mut arr_it = [1,2,3,4];
+    for val in arr_it.iter(){
+        println!("{}", val);
+    }
+
+    let mut arr_it2 = [1,2,3,4];
+    let mut iterator2 = arr_it2.iter();
+    println!("{:?}", iterator2.next());
+
+    for val in iterator2{
+        println!("{}", val);
+    }
+
+    // Closures
+
+    let can_vote = |age: i32| {
+        age > 18
+    };
+
+    fn use_fn<T>(a: i32, b: i32, func: T) -> i32
+    where T: Fn(i32, i32) -> i32 {
+        func(a,b)
+    }
+
+    let sum = |a: i32, b: i32| {
+        a+b
+    };
+
+    let prod = |a: i32, b: i32| {
+        a*b
+    };
+
+    println!("from sum closure : {}",use_fn(1, 2, sum));
+    println!("from prod closure : {}",use_fn(1, 2, prod));
 }
